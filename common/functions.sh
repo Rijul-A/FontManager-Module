@@ -39,7 +39,7 @@ it_failed() {
   ui_print " All files besides logs are assumed to be corrupt, and have been removed."
   rm -fr "$EXT_DATA"/fonts "$EXT_DATA"/emojis
   # shellcheck disable=SC3020
-  am start -a android.intent.action.VIEW -d "https://www.androidacy.com/contact/?f=fm%20$MODULE_VERSION%20install%20fail" &>/dev/null
+  # am start -a android.intent.action.VIEW -d "https://www.androidacy.com/contact/?f=fm%20$MODULE_VERSION%20install%20fail" &>/dev/null
   ui_print " "
   ui_print "⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠ ⚠"
   ui_print " "

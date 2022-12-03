@@ -2,17 +2,17 @@
 # shellcheck disable=SC2169,SC2121,SC2154
 set -x
 ui_print "ⓘ Welcome to Font Manager!"
-updateChecker 'self'
-newVersion=$response
-log 'INFO' "Running update check with module $MODULE_VERSIONCODE and server version $newVersion"
-if test "$MODULE_VERSIONCODE" -lt "$newVersion"; then
-	echo -e "${Bl} Module update found! Please download the latest update manually, and install in magisk manager.${N}"
-	echo -e "${Bl} Attempting to launch downloads page...${N}"
-	sleep 2
-	am start -a android.intent.action.VIEW -d "https://www.androidacy.com/modules-repo/#fontrevival?utm_source=fontmanager&utm_medium=repo&utm_campaign=update_module#fontrevival" &>/dev/null
-	echo -e "${Bl} Exiting now.!${N}"
-	exit 1
-fi
+# updateChecker 'self'
+# newVersion=$response
+# log 'INFO' "Running update check with module $MODULE_VERSIONCODE and server version $newVersion"
+# if test "$MODULE_VERSIONCODE" -lt "$newVersion"; then
+# 	echo -e "${Bl} Module update found! Please download the latest update manually, and install in magisk manager.${N}"
+# 	echo -e "${Bl} Attempting to launch downloads page...${N}"
+# 	sleep 2
+# 	am start -a android.intent.action.VIEW -d "https://www.androidacy.com/modules-repo/#fontrevival?utm_source=fontmanager&utm_medium=repo&utm_campaign=update_module#fontrevival" &>/dev/null
+# 	echo -e "${Bl} Exiting now.!${N}"
+# 	exit 1
+# fi
 xml_s() {
 	# TDOD: refactor this as no one remembers how it works
 	ui_print "ⓘ Registering our fonts, and reverting to default font."
@@ -104,11 +104,11 @@ get_lists() {
 	mkdir -p "$EXT_DATA"/lists
 	mkdir -p "$EXT_DATA"/font
 	mkdir -p "$EXT_DATA"/emoji
-	downloadFile 'lists' 'fonts-list' 'txt' "$MODPATH/lists/fonts.list"
-	downloadFile 'lists' 'emojis-list' 'txt' "$MODPATH/lists/emojis.list"
+	# downloadFile 'lists' 'fonts-list' 'txt' "$MODPATH/lists/fonts.list"
+	# downloadFile 'lists' 'emojis-list' 'txt' "$MODPATH/lists/emojis.list"
 	sed -i 's/[.]zip$//g' "$MODPATH"/lists/*
-	updateChecker 'lists'
-	echo "$response" >"$MODPATH"/lists/lists.version
+	# updateChecker 'lists'
+	# echo "$response" >"$MODPATH"/lists/lists.version
 	for i in etc fonts; do
 		if [ ! -d "$MODPATH"/system/$i ]; then
 			mkdir -p "$MODPATH"/system/$i
@@ -164,4 +164,4 @@ ui_print "⚠ Please make sure not to have any other font changing modules insta
 ui_print "⚠ Please remove any such module, as it conflicts with this one ⚠"
 ui_print "ⓘ Once you reboot, run exactly 'su -c manage_fonts' in TermUX (recommended)"
 sleep 1
-am start -a android.intent.action.VIEW -d "https://www.androidacy.com/install-done/?f=fontmanager&r=fmi&v=$MODULE_VERSION" &>/dev/null
+# am start -a android.intent.action.VIEW -d "https://www.androidacy.com/install-done/?f=fontmanager&r=fmi&v=$MODULE_VERSION" &>/dev/null

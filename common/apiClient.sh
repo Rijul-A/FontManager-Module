@@ -208,7 +208,7 @@ downloadFile() {
         curl -kLsS -A "$API_UA" -b "USER=$api_credentials" -H "Accept-Language: $API_LANG" "$(echo "$link" | sed 's/\\//gi' | sed 's/\ //gi')" -o "$location"
         if test $? -ne 0; then
             handleError
-            downloadFile "$cat" "$file" "$format" "$location"
+            # downloadFile "$cat" "$file" "$format" "$location"
         fi
         sleep $sleep
     fi
@@ -232,7 +232,7 @@ updateChecker() {
         response=$(curl -kLsS -A "$API_UA" -b "USER=$api_credentials" -H "Accept-Language: $API_LANG" "$__api_url/downloads/updates?app=$app&category=$cat")
         if test $? -ne 0; then
             handleError
-            updateChecker "$cat"
+            # updateChecker "$cat"
         fi
         sleep $sleep
         # shellcheck disable=SC2001

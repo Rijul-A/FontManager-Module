@@ -121,7 +121,7 @@ font_select() {
     fi
     do_banner
     echo -e "${Bl} Downloading $choice font..."
-    downloadFile 'fonts' "$choice" 'zip' "$EXT_DATA/font/$choice.zip"
+    # downloadFile 'fonts' "$choice" 'zip' "$EXT_DATA/font/$choice.zip"
     sleep 1
     in_f() {
         RESULTF="$EXT_DATA"/font/"$choice".zip
@@ -210,7 +210,7 @@ emoji_select() {
     fi
     do_banner
     echo -e "${Bl} Downloading $choice emoji set...."
-    downloadFile 'emojis' "$choice" 'zip' "$EXT_DATA/emoji/$choice.zip"
+    # downloadFile 'emojis' "$choice" 'zip' "$EXT_DATA/emoji/$choice.zip"
     sleep 1
     in_e() {
         RESULTE="$EXT_DATA"/emoji/"$choice".zip
@@ -306,7 +306,7 @@ open_link() {
     do_banner
     echo -e "${Bl} Opening https://www.androidacy.com/$1/...${N}"
     sleep 1
-    am start -a android.intent.action.VIEW -d "https://www.androidacy.com/$1/?utm_source=FontManager&utm_medium=modules" &>/dev/null
+    # am start -a android.intent.action.VIEW -d "https://www.androidacy.com/$1/?utm_source=FontManager&utm_medium=modules" &>/dev/null
     sleep 2
     echo -e "${Bl} Page should be open. Returning to menu.${N}"
     sleep 2
@@ -406,38 +406,38 @@ menu_set() {
     done
 }
 # Checks for lists updates. Maybe in the future for module updates.
-updateCheck() {
-    do_banner
-    log 'INFO' 'Starting update check'
-    echo -e "${Bl} Checking for list updates...${N}"
-    updateChecker 'lists'
-    listtVersion=$response
-    if test "$(cat "$MODDIR"/lists/lists.version)" -lt "$listVersion"; then
-        echo -e "${Bl} Lists update found! Updating to v${listVersion}${N}"
-        downloadFile 'lists' 'fonts-list' 'txt' "$MODPATH/lists/fonts.list"
-        downloadFile 'lists' 'emojis-list' 'txt' "$MODPATH/lists/emojis.list"
-        sed -i 's/[.]zip$//g' "$MODPATH"/lists/*
-        cp -f "$MODPATH"/lists/* "$EXT_DATA"/lists
-        updateChecker 'lists'
-        echo "$response" >"$MODPATH"/lists/lists.version
-        echo -e "${Bl} Lists updated! Proceeding to menu!${N}"
-    else
-        echo -e "${Bl} No lists update found! Proceeding to menu${N}"
-    fi
-    echo -e "${Bl} Checking for module updates...${N}"
-    updateChecker 'self'
-    newVersion=$response
-    if test "$(grep 'versionCode=' "$MODDIR"/module.prop | sed 's/versionCode=//')" -lt "$newVersion"; then
-        echo -e "${Bl} Module update found! Please download the latest update manually, and flash in magisk manager or FoxMMM.${N}"
-        echo -e "${Bl} Attempting to launch downloads page...${N}"
-        sleep 2
-        am start -a android.intent.action.VIEW -d "https://www.androidacy.com/modules-repo/?utm_source=fontmanager&utm_medium=repo&utm_campaign=update_module#fontrevival" &>/dev/null
-        echo -e "${Bl} Exiting now.!${N}"
-        exit 1
-    else
-        echo -e "${Bl} No module update found! Proceeding to menu${N}"
-    fi
-}
-updateCheck
+# updateCheck() {
+#     do_banner
+#     log 'INFO' 'Starting update check'
+#     echo -e "${Bl} Checking for list updates...${N}"
+#     updateChecker 'lists'
+#     listtVersion=$response
+#     if test "$(cat "$MODDIR"/lists/lists.version)" -lt "$listVersion"; then
+#         echo -e "${Bl} Lists update found! Updating to v${listVersion}${N}"
+#         downloadFile 'lists' 'fonts-list' 'txt' "$MODPATH/lists/fonts.list"
+#         downloadFile 'lists' 'emojis-list' 'txt' "$MODPATH/lists/emojis.list"
+#         sed -i 's/[.]zip$//g' "$MODPATH"/lists/*
+#         cp -f "$MODPATH"/lists/* "$EXT_DATA"/lists
+#         updateChecker 'lists'
+#         echo "$response" >"$MODPATH"/lists/lists.version
+#         echo -e "${Bl} Lists updated! Proceeding to menu!${N}"
+#     else
+#         echo -e "${Bl} No lists update found! Proceeding to menu${N}"
+#     fi
+#     echo -e "${Bl} Checking for module updates...${N}"
+#     updateChecker 'self'
+#     newVersion=$response
+#     if test "$(grep 'versionCode=' "$MODDIR"/module.prop | sed 's/versionCode=//')" -lt "$newVersion"; then
+#         echo -e "${Bl} Module update found! Please download the latest update manually, and flash in magisk manager or FoxMMM.${N}"
+#         echo -e "${Bl} Attempting to launch downloads page...${N}"
+#         sleep 2
+#         am start -a android.intent.action.VIEW -d "https://www.androidacy.com/modules-repo/?utm_source=fontmanager&utm_medium=repo&utm_campaign=update_module#fontrevival" &>/dev/null
+#         echo -e "${Bl} Exiting now.!${N}"
+#         exit 1
+#     else
+#         echo -e "${Bl} No module update found! Proceeding to menu${N}"
+#     fi
+# }
+# updateCheck
 detect_others
 menu_set
